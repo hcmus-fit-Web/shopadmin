@@ -1,44 +1,66 @@
 <h3>
-    <a href="/" class="btn btn-danger">
+    <a href="/" class="btn btn-primary">
         Create New
     </a>
 </h3>
 
-<table>
+<table class="table table-striped">
 
-
-
-
-    <thead>
+    <thead class="thead thead-dark">
         <tr>
-            <th>Task Name</th>
-            <th>Task Des</th>
-            <th>Operation</th>
+            <th  scope="col">Style</th>
+            <th  scope="col">Price</th>
+            <th  scope="col">Name</th>
+            <th  scope="col">Brand</th>
+            <th  scope="col">Type</th>
+            <th  scope="col">Color</th>
+            <th scope="col">Discount</th>
+            <th  scope="col">Detail</th>
+            <th  scope="col">Link Image</th>
+            <th  scope="col">Link Image Detail</th>
+            <th  scope="col">Update</th>
+            <th  scope="col">Delete</th>
         </tr>
-
     </thead>
     <tbody>
-
-
         {{#each list}}
-
-
             <tr>
-                <td>{{this.task}}</td>
-                <td>{{this.description}}</td>
+                <td class="small" >{{this.productid}}</td>
+                <td class="small">{{this.price}}</td>
+                <td class="small">{{this.name}}</td>
+                <td class="small">{{this.brand}}</td>
+                <td class="small">{{this.type}}</td>
+                <td class="small">{{this.color}}</td>
+                <td class="small">{{this.discount}}</td>
+                <td class="small">{{this.detail}}</td>
+                <td class="small">{{this.image}}</td>
+                <td class="small">{{this.image1}}</td>
                 <td>
                     <a class="btn btn-success" href="/{{this._id}}" >
                         Update
                     </a>
+                </td>
+                <td>
                     <a class="btn btn-danger" href="/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record');">
-                            Delete
-
-                    </a>
+                    Delete</a>
                 </td>
             </tr>
-
-
         {{/each}}
+
+
+        <nav aria-label="...">
+            <ul class="pagination pagination-lg">
+                <li class="page-item"><a class="page-link" href="?page=1" tabindex="-1">1</a></li>
+                <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+                <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+                <li class="page-item"><a class="page-link" href="?page=4">4</a></li>
+                <li class="page-item"><a class="page-link" href="?page=5">5</a></li>
+                <li class="page-item"><a class="page-link" href="?page=6">6</a></li>
+                <li class="page-item"><a class="page-link" href="?page=7">7</a></li>
+                <li class="page-item"><a class="page-link" href="?page=8">8</a></li>
+                <li class="page-item"><a class="page-link" href="?page=9">...</a></li>
+            </ul>
+        </nav>
 
     </tbody>
 
