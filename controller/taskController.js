@@ -5,7 +5,7 @@ const Product = mongoose.model('product');
 
 const router = express.Router();
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 4;
 
 router.get("/",(req,res)=>{
     res.render("addOrEdit",{
@@ -70,24 +70,57 @@ function  updateRecord(req,res){
     })
 }
 
-router.get('/list?page=:',(req,res)=>{
+router.get('/list',(req,res)=>{
 
     var page = req.query.page;
-    console.log(page);
 
-    if (page){
+    if(page) {
         page = parseInt(page);
-        var skip = (page - 1) * PAGE_SIZE;
-        const list = Product.find({}).skip(skip).limit(PAGE_SIZE);
-        res.render('list',{list});
+        if (page < 1){page = 1;}
 
-    }else {
-        page = 1;
-        console.log(page);
         var skip = (page - 1) * PAGE_SIZE;
-        const list = Product.find({}).skip(skip).limit(PAGE_SIZE);
-        res.render('list',{list});
+
+        Product.find((err,docs)=>{
+            if (!err){
+                res.render("list",{
+                    list:docs
+                })
+            }
+        }).skip(skip).limit(PAGE_SIZE).lean();
+
+    }else{
+        page = 1;
+        var skip = (page - 1) * PAGE_SIZE;
+
+        Product.find((err,docs)=>{
+            if (!err){
+                res.render("list",{
+                    list:docs
+                })
+            }
+        }).skip(skip).limit(PAGE_SIZE).lean();
     }
+
+
+
+
+    // if (page){
+    //     page = parseInt(page);
+    //     if (page<1) {page = 1;}
+    //     var skip = (page - 1) * PAGE_SIZE;
+    //     const products = Product.find({}).skip(skip).limit(PAGE_SIZE).lean();
+    //     console.log(products);
+    //     res.locals.list = products
+    //     res.render('list');
+    //
+    // }else {
+    //     page = 1;
+    //     var skip = (page - 1) * PAGE_SIZE;
+    //     const products = Product.find({}).skip(skip).limit(PAGE_SIZE).lean();
+    //     console.log(products);
+    //     res.locals.list = products
+    //     res.render('list');
+    // }
 })
 
 router.get('/:id',(req,res)=>{
